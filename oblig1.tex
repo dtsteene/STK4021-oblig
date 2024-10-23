@@ -12,7 +12,7 @@
 \begin{document}
 
 \maketitle
-\section{Problem 1}
+\section{}
 Let $y$ be a Bernoulli random variable with parameter $\theta \in (0,1)$, so $y$ has the mass function $f_\theta(y) = \theta^y(1-\theta)^{1-y}$, for $y = 0,1$.
 \begin{enumerate}
 
@@ -245,7 +245,7 @@ The minimal Bayes risk is then
 
 \end{enumerate}
 
-\section{Problem 2}
+\section{}
 
 
 \begin{equation}
@@ -587,7 +587,7 @@ on the uniform prior
     \pi(\theta = \theta_0 | x) &= \frac{\pi(x | H0) \pi(H0)}{\pi(x | H0) \pi(H0) + \pi(x | H1) \pi(H1)}\\
     &= \frac{\pi(x | H0) 1/2}{\pi(x | H0) 1/2 + \pi(x | H1) 1/2}\\
     &= \frac{\pi(x | H0)}{\pi(x | H0) + \pi(x | H1)}
-    &= \frac{L(\theta_0)}{\theta_0 + \int_0^{\pi/2} L(\theta) \cdot \text{prior} d\theta}
+    &= \frac{L(\theta_0)}{\theta_0 + \int_0^{\pi/2} L(\theta) \cdot \text{prior} d\theta}\\
     &= \frac{L(\theta_0)}{\theta_0 + \int_0^{\pi/2} L(\theta)  \frac{2}{\pi} d\theta}
 \end{align*}
 
@@ -619,7 +619,106 @@ was a lot better. With this prior Dionysus should maybe not believe Artemis' cla
 \end{enumerate}
     
 
-\section{Problem 3}
+\section{} 
+In this quation, let $y_1, \dots, y_n$ be independent one dimentional Gaussian random variables with mean $\theta$ and variance $\sigma^2$. 
 
+\begin{enumerate}
+    \item[(a)] Suppose that $\sigma^2$ be a known parameter, and that we wish to estimate $\theta$. Write down the log-likelihood $\ell(\theta)$ and verify that the maximum likelihood estimator is given by $\hat{\theta} = \bar{y} = n^{-1} \sum_{i=1}^n y_i$.
+
+    \textbf{Solution:}
+    \par
+
+    For a single sample we get
+    \[
+    \ell_i = -\frac{1}{2} \log(2\pi) - \log(\sigma) - \frac{1}{2\sigma^2} (y_i - \theta)^2
+    \]
+    The log-likelihood is then
+    \[
+    \ell(\theta) = -\frac{n}{2} \log(2\pi) - n \log(\sigma) - \frac{1}{2\sigma^2} \sum_{i=1}^n (y_i - \theta)^2
+    \]
+
+    Taking the derivative and setting it to zero we get
+    \begin{align*}
+        \ell'(\theta) &= \frac{1}{\sigma^2} \sum_{i=1}^n (y_i - \theta) = 0\\
+        \sum_{i=1}^n y_i - n\theta &= 0\\
+        n\theta &= \sum_{i=1}^n y_i\\
+        \theta &= \frac{1}{n} \sum_{i=1}^n y_i = \bar{y}
+    \end{align*}
+
+
+    \item[(b)] Impose a Gaussian prior distribution on $\theta$, say $\theta \sim N(\mu, \tau^2)$. Show (either from scratch or via tools from lectures), that the posterior distribution of $\theta | y_1, \dots, y_n$ is also a Gaussian distribution, and find its mean $\mu_n$ and variance $\sigma_n^2$.
+    
+    \textbf{Solution:}
+    \par
+    Returninig to the likelihood function
+    \begin{align*}
+        L(y|\theta) &= \prod_{i=1}^n \frac{1}{\sqrt{2\pi} \sigma} \exp\left(-\frac{1}{2\sigma^2} (y_i - \theta)^2\right)\\
+        &= \frac{1}{(2\pi)^{n/2} \sigma^n} \exp\left(-\frac{1}{2\sigma^2} \sum_{i=1}^n (y_i - \theta)^2\right)
+    \end{align*}
+    The prior is given by
+    \[
+    \pi(\theta) = \frac{1}{\sqrt{2\pi} \tau} \exp\left(-\frac{1}{2\tau^2} (\theta - \mu)^2\right)
+    \]
+    The posterior is then proportioal to
+    \begin{align*}
+        \pi(\theta | y) &\propto L(y|\theta) \pi(\theta)\\
+        &\propto \exp\left(-\frac{1}{2\sigma^2} \sum_{i=1}^n (y_i - \theta)^2\right) \exp\left(-\frac{1}{2\tau^2} (\theta - \mu)^2\right)\\
+        &= \exp\left(-\frac{1}{2\sigma^2} \sum_{i=1}^n (y_i - \theta)^2 -\frac{1}{2\tau^2} (\theta - \mu)^2\right)\\
+    \end{align*}
+
+    We need compleate the square in $\theta$ and find the mean and variance. The exponent is
+    \begin{align*}
+            &\frac{1}{2\sigma^2} \sum_{i=1}^n (y_i - \theta)^2 + \frac{1}{2\tau^2} (\theta - \mu)^2\\ 
+            &= \frac{1}{2\sigma^2} \sum_{i=1}^n (y_i^2 - 2y_i\theta + \theta^2) + \frac{1}{2\tau^2} (\theta^2 - 2\theta\mu + \mu^2)\\
+            &= A \theta^2 + B \theta + C
+    \end{align*}
+
+    with 
+    \[
+    A = \frac{n}{2\sigma^2}  + \frac{1}{2\tau^2}, \quad B = -\frac{1}{\sigma^2} \sum_{i=1}^n y_i + \frac{1}{\tau^2} \mu, \quad C = \frac{1}{2\sigma^2} \sum_{i=1}^n y_i^2 + \frac{1}{2\tau^2} \mu^2
+    \]
+    Compleating the square of this general form is easy
+    \begin{align*}
+        A \theta^2 + B \theta + C &= A \left(\theta^2 + \frac{B}{2A} + \frac{B^2}{A^2} - \frac{B^2}{A^2}\right) + C \\
+        &= A \left(\theta - \frac{B}{2A}\right)^2 - \frac{B^2}{4A} + C
+    \end{align*}
+
+    The posterior is then clearly a Gaussian with mean
+    \[
+    \mu_n = \frac{B}{2A} = \frac{\frac{1}{\sigma^2} \sum_{i=1}^n y_i + \frac{1}{\tau^2} \mu}{\frac{n}{2\sigma^2}  + \frac{1}{2\tau^2}}
+    \]
+    and variance
+    \[
+    \sigma_n^2 = \frac{1}{2A} = \frac{1}{\frac{n}{2\sigma^2}  + \frac{1}{2\tau^2}}
+    \]
+
+    \item[(c)] Show that we can write $\mu_n = \lambda_n \mu + (1 - \lambda_n) \bar{y}$, where $0 < \lambda_n < 1$ is a constant depending on $n$. Find the limit of $\lambda_n$ as $n \to \infty$, and interpret what this result means.
+    
+    \textbf{Solution:}
+    \par
+
+    
+
+
+    \item[(d)] Let $y'$ be another Gaussian observation, with mean $\theta$ and variance $\sigma^2$, which is independent of $y_1, \dots, y_n$. Show that predictive distribution of $y' | y_1, \dots, y_n$ is yet another Gaussian distribution, with mean $\mu_n$ and variance $\sigma^2 + \sigma_n^2$.
+    
+    \item[(e)] Let $\gamma = 1/\sigma^2$ be the precision of the data model, so that $y_i \sim N(\theta, \gamma^{-1})$, independently for $i = 1, \dots, n$. Now suppose $\theta$ is known, and that we instead wish to estimate $\gamma$. Write down the log-likelihood function $h(\gamma)$ and verify that the maximum likelihood estimator is given by $\hat{\gamma} = n^{-1} \sum_{i=1}^n (y_i - \theta)^2$.
+    
+    \item[(f)] Impose a Gamma prior on $\gamma$, say $\gamma \sim \text{Gamma}(a, b)$, with $a, b > 0$, so that
+    \[
+    \pi(\gamma) = \frac{b^a}{\Gamma(a)} \gamma^{a-1} e^{-b\gamma}, \quad \gamma > 0.
+    \]
+    Verify that $\mathbb{E}[\gamma] = a/b$ in the prior.
+    
+    \item[(g)] Show that the posterior distribution of $\gamma | y_1, \dots, y_n$ is also a Gamma distribution, and find its parameters $a_n$ and $b_n$.
+    
+    \item[(h)] Like you did in part (c), show that the posterior mean of $\gamma$ can also be written as a convex combination of the prior mean $\mathbb{E}[\gamma]$ and the maximum likelihood estimator $\hat{\gamma}$.
+    
+    \item[(i)] Let $n = 1$, so we only have a single Gaussian random variable $y \sim N(\theta, \gamma^{-1})$. Show that marginally, $y$ has a Student's $t$-distribution,
+    \[
+    \pi(y) = \frac{\Gamma(\nu/2 + 1/2)}{\Gamma(\nu/2)} \left( \frac{\delta}{\pi \nu} \right)^{1/2} \left( 1 + \frac{\gamma (y - \theta)^2}{\nu} \right)^{-\nu/2-1/2},
+    \]
+    where $\delta = a/b$ and $\nu = 2a$. \textit{[Hint: use the substitution $z = \gamma[b + \gamma(y - \theta)^2/2]$ when integrating.}
+\end{enumerate}
 
 \end{document}
