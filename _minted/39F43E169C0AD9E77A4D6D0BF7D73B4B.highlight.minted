@@ -1,0 +1,8 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+    \PYG{k}{def} \PYG{n+nf}{p\PYGZus{}H0\PYGZus{}num\PYGZus{}integration}\PYG{p}{(}\PYG{n}{start}\PYG{p}{,} \PYG{n}{end}\PYG{p}{)}\PYG{p}{:}
+    \PYG{c+c1}{\PYGZsh{}integrate likelihood from start to end}
+    \PYG{n}{prior} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{o}{/}\PYG{p}{(}\PYG{n}{end} \PYG{o}{\PYGZhy{}} \PYG{n}{start}\PYG{p}{)}
+    \PYG{n}{lik\PYGZus{}theta0} \PYG{o}{=} \PYG{n}{likelihood}\PYG{p}{(}\PYG{n}{theta\PYGZus{}0}\PYG{p}{)}
+    \PYG{n}{lik\PYGZus{}theta} \PYG{o}{=} \PYG{n}{quad}\PYG{p}{(}\PYG{n}{likelihood}\PYG{p}{,} \PYG{n}{start}\PYG{p}{,} \PYG{n}{end}\PYG{p}{)}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{o}{*}\PYG{n}{prior}
+    \PYG{k}{return} \PYG{n}{lik\PYGZus{}theta0}\PYG{o}{/}\PYG{p}{(}\PYG{n}{lik\PYGZus{}theta} \PYG{o}{+} \PYG{n}{lik\PYGZus{}theta0}\PYG{p}{)}
+\end{MintedVerbatim}

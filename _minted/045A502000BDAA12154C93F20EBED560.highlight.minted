@@ -1,0 +1,14 @@
+\begin{MintedVerbatim}[commandchars=\\\{\}]
+    \PYG{k}{def} \PYG{n+nf}{A}\PYG{p}{(}\PYG{n}{theta}\PYG{p}{)}\PYG{p}{:}
+    \PYG{n}{const} \PYG{o}{=} \PYG{n}{v0}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{o}{/}\PYG{n}{g}
+    \PYG{k}{if} \PYG{n}{x\PYGZus{}bar} \PYG{o}{\PYGZgt{}} \PYG{n}{const}\PYG{p}{:}
+        \PYG{k}{return} \PYG{o}{\PYGZhy{}}\PYG{n}{sigma}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2} \PYG{o}{*} \PYG{n}{g}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2} \PYG{o}{/} \PYG{p}{(}\PYG{l+m+mi}{4} \PYG{o}{*} \PYG{n}{v0}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{4} \PYG{o}{*} \PYG{n}{n} \PYG{o}{*}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{o}{\PYGZhy{}}\PYG{n}{x\PYGZus{}bar}\PYG{o}{*}\PYG{n}{g}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{)}\PYG{p}{)}
+    \PYG{k}{else}\PYG{p}{:}
+        \PYG{k}{return} \PYG{n}{sigma}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2} \PYG{o}{*}\PYG{n}{g}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{o}{/}\PYG{p}{(}\PYG{l+m+mi}{4}\PYG{o}{*}\PYG{n}{v0}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{4} \PYG{o}{*}\PYG{n}{n} \PYG{o}{*} \PYG{n}{np}\PYG{o}{.}\PYG{n}{cos}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{o}{*}\PYG{n}{theta}\PYG{p}{)}\PYG{o}{*}\PYG{o}{*}\PYG{l+m+mi}{2}\PYG{p}{)}
+
+
+\PYG{k}{def} \PYG{n+nf}{laplace\PYGZus{}approximation\PYGZus{}pdf}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}\PYG{p}{:}
+    \PYG{n}{mu} \PYG{o}{=} \PYG{n}{theta\PYGZus{}hat}\PYG{p}{(}\PYG{p}{)}
+    \PYG{k}{return} \PYG{n}{norm}\PYG{o}{.}\PYG{n}{pdf}\PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{loc}\PYG{o}{=}\PYG{n}{mu}\PYG{p}{,} \PYG{n}{scale}\PYG{o}{=}\PYG{n}{np}\PYG{o}{.}\PYG{n}{sqrt}\PYG{p}{(}\PYG{n}{A}\PYG{p}{(}\PYG{n}{theta\PYGZus{}hat}\PYG{p}{(}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}\PYG{p}{)}
+
+\end{MintedVerbatim}
