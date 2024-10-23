@@ -680,27 +680,48 @@ In this quation, let $y_1, \dots, y_n$ be independent one dimentional Gaussian r
     Compleating the square of this general form is easy
     \begin{align*}
         A \theta^2 + B \theta + C &= A \left(\theta^2 + \frac{B}{2A} + \frac{B^2}{A^2} - \frac{B^2}{A^2}\right) + C \\
-        &= A \left(\theta - \frac{B}{2A}\right)^2 - \frac{B^2}{4A} + C
+        &= A \left(\left(\theta + \frac{B}{A}\right)^2  -\frac{B^2}{A^2} \right)+ C\\
+        &= A \left(\theta - \frac{B}{A}\right)^2 - \frac{B^2}{A} + C
     \end{align*}
 
     The posterior is then clearly a Gaussian with mean
-    \[
-    \mu_n = \frac{B}{2A} = \frac{\frac{1}{\sigma^2} \sum_{i=1}^n y_i + \frac{1}{\tau^2} \mu}{\frac{n}{2\sigma^2}  + \frac{1}{2\tau^2}}
-    \]
+    \begin{align*}
+    \mu_n =& \frac{B}{A} = \left(\frac{n}{\sigma^2} + \frac{1}{\tau^2} \right)^{-1} \left(\frac{n \bar{y}}{\sigma^2} + \frac{\mu}{\tau^2}\right)\\
+    =& \frac{n \bar{y} \tau^2 + \mu \sigma^2}{n \tau^2 + \sigma^2}
+    \end{align*}
+
     and variance
     \[
-    \sigma_n^2 = \frac{1}{2A} = \frac{1}{\frac{n}{2\sigma^2}  + \frac{1}{2\tau^2}}
+    \sigma_n^2 = \frac{1}{2A} = \left(\frac{n}{\sigma^2} + \frac{1}{\tau^2} \right)^{-1} 
     \]
 
     \item[(c)] Show that we can write $\mu_n = \lambda_n \mu + (1 - \lambda_n) \bar{y}$, where $0 < \lambda_n < 1$ is a constant depending on $n$. Find the limit of $\lambda_n$ as $n \to \infty$, and interpret what this result means.
     
     \textbf{Solution:}
     \par
-
     
+    \begin{align*}
+        \mu_n =& \frac{n \bar{y} \tau^2 + \mu \sigma^2}{n \tau^2 + \sigma^2}\\
+        =& \frac{n \tau^2}{n \tau^2 + \sigma^2} \bar{y} + \frac{\sigma^2}{n \tau^2 + \sigma^2} \mu\\
+    \end{align*}
+    From this we see that our $\lambda_n$ canditate is $\frac{\sigma^2}{n \tau^2 + \sigma^2}$.
+    Then $ \frac{n \tau^2}{n \tau^2 + \sigma^2}$ needs to equal $1 - \lambda_n$. Let's check
+    \begin{align*}
+        &\frac{n \tau^2}{n \tau^2 + \sigma^2} + \frac{\sigma^2}{n \tau^2 + \sigma^2}\\
+        &= \frac{n \tau^2 + \sigma^2}{n \tau^2 + \sigma^2}\\
+        &= 1
+    \end{align*}
+
+    The limit of $\lambda_n$ as $n \to \infty$ is then $0$. This means that $\mu_n \to \bar{y}$
+    As the sample size increases, the influence of the prior deminishes and the posterior mean 
+    converges to the sample mean, which is the maximum likelihood estimate.
 
 
     \item[(d)] Let $y'$ be another Gaussian observation, with mean $\theta$ and variance $\sigma^2$, which is independent of $y_1, \dots, y_n$. Show that predictive distribution of $y' | y_1, \dots, y_n$ is yet another Gaussian distribution, with mean $\mu_n$ and variance $\sigma^2 + \sigma_n^2$.
+
+    \textbf{Solution:}
+    \par
+    The predictive distribution is given by
     
     \item[(e)] Let $\gamma = 1/\sigma^2$ be the precision of the data model, so that $y_i \sim N(\theta, \gamma^{-1})$, independently for $i = 1, \dots, n$. Now suppose $\theta$ is known, and that we instead wish to estimate $\gamma$. Write down the log-likelihood function $h(\gamma)$ and verify that the maximum likelihood estimator is given by $\hat{\gamma} = n^{-1} \sum_{i=1}^n (y_i - \theta)^2$.
     
